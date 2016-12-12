@@ -1,0 +1,30 @@
+{
+  "name": "jaeger",
+  "version": "1.0.0",
+  "private": true,
+  "description": "IA to win aws serverless camp",
+  "scripts": {
+    "start": "claudia create --region eu-west-1 --api-module controller",
+    "deploy": "claudia update"
+  },
+  "author": "Pau Trepat",
+  "dependencies": {
+    "claudia-api-builder": "^2.0.0"
+  },
+  "devDependencies": {
+    "claudia": "^2.0.2"
+  },
+  "main": "controller.js",
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Trepix/serverless-tank.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Trepix/serverless-tank/issues"
+  },
+  "homepage": "https://github.com/Trepix/serverless-tank#readme",
+  "license": "ISC"
+}
