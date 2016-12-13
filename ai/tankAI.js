@@ -7,7 +7,7 @@ module.exports = (function () {
 
     var positionUtils;
 
-    var move = function(map) {
+    var move = function (map) {
         initUtils(map);
 
         if (positionUtils.areEnemiesNear()) {
@@ -16,13 +16,20 @@ module.exports = (function () {
         else return actions.FIRE;
     };
 
-    var initUtils = function(map) {
-        positionUtils = PositionUtils(map);
-    };
-
-    var moveUnderThreat = function(map) {
-        return actions.FIRE;
-    };
+    var initUtils = function (map) {
+            positionUtils = PositionUtils(map);
+        },
+        moveUnderThreat = function (map) {
+            if (canShootOrBeShotUp(map))  {
+                return actions.FIRE;
+            }
+            else {
+                return actions.FIRE;
+            }
+        },
+        canShootOrBeShotUp = function (map) {
+            return true;
+        };
 
     return {
         move: move
