@@ -1,26 +1,34 @@
 /*global module */
 
 // utils = require('./utils');
-// position = require('./position');
-
+actions = require("./actions");
+PositionUtils = require("./position-utils");
 module.exports = (function () {
 
-    return {
-        move: function (map) {
-            return 'fire'
+    var positionUtils;
+
+    var move = function(map) {
+        initUtils(map);
+
+        if (positionUtils.areEnemiesNear()) {
+            return moveUnderThreat(map);
         }
+        else return actions.FIRE;
+    };
+
+    var initUtils = function(map) {
+        positionUtils = PositionUtils(map);
+    };
+
+    var moveUnderThreat = function(map) {
+        return actions.FIRE;
+    };
+
+    return {
+        move: move
     };
 })();
-// var wallAt = function (point) {
-// 		return map.walls.find(function (wall) {
-// 			return wall.x === point.x && wall.y === point.y;
-// 		});
-// 	},
-// 	enemyAt = function (point) {
-// 		return map.enemies.find(function (tank) {
-// 			return tank.x === point.x && tank.y === point.y;
-// 		});
-// 	},
+
 // 	movements = {
 // 		top: {x: 0, y: -1},
 // 		left: {x: -1, y: 0},

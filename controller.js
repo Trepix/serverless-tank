@@ -2,7 +2,7 @@
 
 var API = require('claudia-api-builder'),
     api = new API(),
-    tankIA = require("./tankIA");
+    tankIA = require("./ai/tankAI");
 
 module.exports = api;
 
