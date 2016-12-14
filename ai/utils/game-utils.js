@@ -1,9 +1,4 @@
-/**
- * Created by trepix on 12/12/2016.
- */
-
 var LIMIT_OF_TURNS_TO_CONSIDER_SUDDEN_DEATH_NEAR = 10;
-
 
 module.exports = (function () {
 

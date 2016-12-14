@@ -1,6 +1,5 @@
-
 basicPositionUtils = require("./basic-position-utils");
-directions = require("./directions");
+directions = require("./enum/directions");
 
 var position_utils = function (_map) {
     /**
@@ -11,14 +10,6 @@ var position_utils = function (_map) {
      * @property {number} map.suddenDeath
      * */
     var map = _map;
-    var me = map.tank;
-
-    var areEnemiesNear = function () {
-        return map.enemies.find(function (enemy) {
-                return (typeof enemy.direction != 'undefined');
-            }
-        );
-    };
 
     var wallAt = function (point) {
         return map.walls.find(function (wall) {
@@ -32,31 +23,10 @@ var position_utils = function (_map) {
         });
     };
 
-    var canBeShotUp = function () {
-        return map.enemies.find(function (enemy) {
-            if (inSameAxisX(me, enemy)) {
-
-            }
-            return false;
-        });
-    };
-
-    var inSameAxisX = function (tank, enemy) {
-            return tank.x == enemy.x;
-        },
-        inSameAxisY = function (tank, enemy) {
-            return tank.y == enemy.y;
-        },
-        isLookingToMe = function (tank, enemy) {
-            return false;
-        };
-
 
     return {
-        areEnemiesNear: areEnemiesNear,
         wallAt: wallAt,
-        enemyAt: enemyAt,
-        canBeShotUp: canBeShotUp
+        enemyAt: enemyAt
     };
 };
 

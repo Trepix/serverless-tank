@@ -1,39 +1,39 @@
-actions = require("./actions");
-PositionUtils = require("./position-utils");
+actions = require("./utils/enum/actions");
+PositionUtils = require("./utils/position-utils");
+EnemyUtils = require("./utils/enemy-utils");
 
 module.exports = (function () {
 
     var positionUtils;
+    var enemyUtils;
+    var myTank;
 
     var move = function (map) {
-        initUtils(map);
+        init(map);
 
-        if (positionUtils.areEnemiesNear()) {
-            return combatMovement(map);
+        if (enemyUtils.areEnemiesNear()) {
+            return combatMovement();
         }
-        else return nonCombatMovement(map);
+        else return nonCombatMovement();
     };
 
-    var initUtils = function (map) {
+    var init = function (map) {
+        myTank = map.you;
         positionUtils = PositionUtils(map);
+        enemyUtils = EnemyUtils(map.enemies);
     };
 
-    var combatMovement = function (map) {
-        if (canShootOrBeShotUp(map)) {
+    var combatMovement = function () {
+        if (enemyUtils.areEnemiesInMyAxis(myTank)) {
             return actions.FIRE;
         }
         else {
-            return actions.FIRE;
+            return actions.TURN_LEFT;
         }
     };
 
-    var nonCombatMovement = function (map) {
+    var nonCombatMovement = function () {
         return actions.FIRE;
-    };
-
-
-    var canShootOrBeShotUp = function (map) {
-        return true;
     };
 
 

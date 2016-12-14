@@ -1,6 +1,15 @@
-directions = require("./directions");
+directions = require("./enum/directions");
 
 module.exports = {
+    sameAxisX(me, point) {
+        return me.x == point.x;
+    },
+    sameAxisY(me, point) {
+        return me.y = point.y;
+    },
+    sameAxis(me, point) {
+        return this.sameAxisX(me, point) || this.sameAxisY(me, point);
+    },
     distanceOnAxisX(me, point) {
         return Math.abs(me.x - point.x);
     },
@@ -42,6 +51,9 @@ module.exports = {
         })
     }
 };
+
+
+
 
 /**                   TOP
  *
