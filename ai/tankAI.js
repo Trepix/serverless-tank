@@ -1,8 +1,6 @@
-/*global module */
-
-// utils = require('./utils');
 actions = require("./actions");
 PositionUtils = require("./position-utils");
+
 module.exports = (function () {
 
     var positionUtils;
@@ -11,25 +9,33 @@ module.exports = (function () {
         initUtils(map);
 
         if (positionUtils.areEnemiesNear()) {
-            return moveUnderThreat(map);
+            return combatMovement(map);
         }
-        else return actions.FIRE;
+        else return nonCombatMovement(map);
     };
 
     var initUtils = function (map) {
-            positionUtils = PositionUtils(map);
-        },
-        moveUnderThreat = function (map) {
-            if (canShootOrBeShotUp(map))  {
-                return actions.FIRE;
-            }
-            else {
-                return actions.FIRE;
-            }
-        },
-        canShootOrBeShotUp = function (map) {
-            return true;
-        };
+        positionUtils = PositionUtils(map);
+    };
+
+    var combatMovement = function (map) {
+        if (canShootOrBeShotUp(map)) {
+            return actions.FIRE;
+        }
+        else {
+            return actions.FIRE;
+        }
+    };
+
+    var nonCombatMovement = function (map) {
+        return actions.FIRE;
+    };
+
+
+    var canShootOrBeShotUp = function (map) {
+        return true;
+    };
+
 
     return {
         move: move

@@ -11,7 +11,7 @@ var position_utils = function (_map) {
      * @property {number} map.suddenDeath
      * */
     var map = _map;
-    var tank = map.tank;
+    var me = map.tank;
 
     var areEnemiesNear = function () {
         return map.enemies.find(function (enemy) {
@@ -34,7 +34,7 @@ var position_utils = function (_map) {
 
     var canBeShotUp = function () {
         return map.enemies.find(function (enemy) {
-            if (inSameAxisX(tank, enemy)) {
+            if (inSameAxisX(me, enemy)) {
 
             }
             return false;
