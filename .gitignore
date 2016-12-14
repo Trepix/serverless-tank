@@ -1,3 +1,4 @@
 node_modules
 .idea/
 claudia.json
+.DS_Store
