@@ -8,11 +8,17 @@ module.exports = (function () {
     var enemyUtils;
     var myTank;
 
+    /**
+     * @param {object} map
+     * @param {Array} map.enemies
+     * @param {object} map.you
+     * @param {number} map.weaponRange
+     * */
     var move = function (map) {
         init(map);
 
         if (enemyUtils.areEnemiesNear()) {
-            return combatMovement();
+            return combatMovement(map);
         }
         else return nonCombatMovement();
     };
@@ -23,13 +29,11 @@ module.exports = (function () {
         enemyUtils = EnemyUtils(map.enemies);
     };
 
-    var combatMovement = function () {
-        if (enemyUtils.areEnemiesInMyAxis(myTank)) {
+    var combatMovement = function (map) {
+        if (enemyUtils.canShootEnemy(myTank, map.weaponRange)) {
             return actions.FIRE;
         }
-        else {
-            return actions.TURN_LEFT;
-        }
+        return actions.TURN_LEFT;
     };
 
     var nonCombatMovement = function () {
