@@ -1,6 +1,6 @@
 module.exports = {
     FORWARD: 'forward',
-    REVERSE: 'reverse',
+    BACKWARD: 'reverse',
     FIRE: 'fire',
     PASS: 'pass',
     TURN_LEFT: 'turn-left',

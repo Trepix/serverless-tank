@@ -1,4 +1,5 @@
 actions = require("./utils/enum/actions");
+directions = require("./utils/enum/actions");
 PositionUtils = require("./utils/position-utils");
 EnemyUtils = require("./utils/enemy-utils");
 
@@ -13,6 +14,7 @@ module.exports = (function () {
      * @param {Array} map.enemies
      * @param {object} map.you
      * @param {number} map.weaponRange
+     * @param {number} map.visibility
      * */
     var move = function (map) {
         init(map);
@@ -30,14 +32,37 @@ module.exports = (function () {
     };
 
     var combatMovement = function (map) {
-        if (enemyUtils.canShootEnemy(myTank, map.weaponRange)) {
+        if (enemyUtils.canShootEnemy(myTank, map.visibility)) { //wait him meanwhile I shoot
             return actions.FIRE;
         }
-        return actions.TURN_LEFT;
+        else if (enemyUtils.canBeShotByEnemy(myTank, map.weaponRange)) {
+            return evasionMovement();
+        }
+        return actions.PASS;
     };
 
     var nonCombatMovement = function () {
-        return actions.FIRE;
+        return actions.PASS;
+    };
+
+    var evasionMovement = function() {
+        var forwardMovement = directions.getForwardMovement(myTank.direction);
+        var backwardMovement = directions.getBackwardMovement(myTank.direction);
+
+        var newForwardPosition = getMovement(myTank, forwardMovement);
+        var newBackwardPosition = getMovement(myTank, backwardMovement);
+        if (!positionUtils.wallAt(newForwardPosition)) {
+            return actions.FORWARD;
+        }
+        else if (!positionUtils.wallAt(newBackwardPosition)) {
+            return actions.BACKWARD;
+        }
+        console.log("so fucked");
+        return actions.TURN_LEFT;
+    };
+
+    var getMovement = function(position, movement) {
+        return {x: position.x + movement.x, y: position.y + movement.y };
     };
 
 

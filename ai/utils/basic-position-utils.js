@@ -5,7 +5,7 @@ module.exports = {
         return me.x == point.x;
     },
     sameAxisY(me, point) {
-        return me.y = point.y;
+        return me.y == point.y;
     },
     sameAxis(me, point) {
         return this.sameAxisX(me, point) || this.sameAxisY(me, point);
@@ -45,14 +45,14 @@ module.exports = {
         return directionsToPoint;
     },
     /**
-     * @param {object} me
-     * @param {string} me.direction
+     * @param {object} tank
+     * @param {string} tank.direction
      * @param {object} point
      * */
-    imWellOrientedToPoint(me, point) {
-        var directionsOfPoint = this.inWhichDirectionIsPoint(me, point);
+    tankOrientedTo(tank, point) {
+        var directionsOfPoint = this.inWhichDirectionIsPoint(tank, point);
         return directionsOfPoint.find(function (directionOfPoint) {
-            return directionOfPoint == me.direction;
+            return directionOfPoint == tank.direction;
         })
     }
 };

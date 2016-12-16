@@ -13,21 +13,27 @@ var enemy_utils = function (_enemies) {
         );
     };
 
-    var canShootEnemy = function (me, shootDistance) {
+    var canShootEnemy = function (me, range) {
         return enemies.find(function (enemy) {
-            console.log("shootDistance:" + shootDistance);
-            console.log("distance:" + basicPositionUtils.distance(me, enemy));
-            console.log("well oritented:" + basicPositionUtils.imWellOrientedToPoint(me, enemy));
             return basicPositionUtils.sameAxis(me, enemy) &&
-                basicPositionUtils.imWellOrientedToPoint(me, enemy) &&
-                basicPositionUtils.distance(me, enemy) <= shootDistance;
+                basicPositionUtils.tankOrientedTo(me, enemy) &&
+                basicPositionUtils.distance(me, enemy) <= range;
+        });
+    };
+
+    var canBeShotByEnemy = function (me, range) {
+        return enemies.find(function (enemy) {
+            return basicPositionUtils.sameAxis(me, enemy) &&
+                   basicPositionUtils.tankOrientedTo(enemy, me) &&
+                   basicPositionUtils.distance(me, enemy) <= range;
         });
     };
 
 
     return {
         areEnemiesNear: areEnemiesNear,
-        canShootEnemy: canShootEnemy
+        canShootEnemy: canShootEnemy,
+        canBeShotByEnemy: canBeShotByEnemy
     };
 };
 
